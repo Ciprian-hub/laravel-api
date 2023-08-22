@@ -17,6 +17,7 @@ class SurveyController extends Controller
      */
     public function index(Request $request)
     {
+        //test
         $user = $request->user();
         return SurveyResource::collection(Survey::where('user_id', $user->id))->paginate();
     }
