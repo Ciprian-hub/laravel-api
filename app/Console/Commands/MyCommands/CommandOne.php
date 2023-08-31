@@ -2,7 +2,10 @@
 
 namespace App\Console\Commands\MyCommands;
 
+use App\Http\Resources\SurveyResource;
+use App\Models\Survey;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Console\Command;
 
 class CommandOne extends Command
@@ -24,9 +27,11 @@ class CommandOne extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(Request $request)
     {
-        $user = User::all();
+
+        $user = $request->user();
+        $ddd =  SurveyResource::collection(Survey::where('user_id', !null))->get();
         dd($user);
     }
 }
