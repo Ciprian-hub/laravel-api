@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-//use App\Http\Requests\StoreSurveyAnswerRequest;
 use App\Http\Resources\SurveyResource;
 use App\Models\Survey;
 use App\Http\Requests\StoreSurveyRequest;
 use App\Http\Requests\UpdateSurveyRequest;
 use App\Models\SurveyAnswer;
-//use App\Models\SurveyQuestion;
 use App\Models\SurveyQuestionAnswer;
 use App\Models\SurveyQuestions;
 use Illuminate\Http\Response;
@@ -26,9 +24,9 @@ class SurveyController extends Controller
      */
     public function index(Request $request)
     {
-        //test
+
         $user = $request->user();
-        return  SurveyResource::collection(Survey::where('user_id',  $user->id)->paginate(10));
+        return  SurveyResource::collection(Survey::where('user_id',  $user->id)->paginate(6));
     }
 
     /**
@@ -63,7 +61,7 @@ class SurveyController extends Controller
         $user = $request->user();
         if ($user->id !== $survey->user_id) {
                 return abort(403, 'Unauthorized action.');
-        };
+        }
 
         return new SurveyResource($survey);
     }
@@ -216,4 +214,12 @@ class SurveyController extends Controller
 
         return $question->update($validator->validated());
     }
+
+    public function showSurveyForGuests(Survey $survey)
+    {
+
+        return new SurveyResource($survey);
+    }
+
+
 }
