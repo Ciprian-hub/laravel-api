@@ -26,7 +26,7 @@ Route::middleware('auth:sanctum')->group( function () {
 });
 
 Route::get('/survey-by-slug/{survey:slug}', [SurveyController::class, 'showSurveyForGuests']);
-
+Route::post('/survey/{survey}/answer', [SurveyController::class, 'storeAnswer']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
